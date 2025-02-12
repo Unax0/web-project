@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
-import TodoList from '../todo-list';
+import TodoList from '../todo-list/todo-list';
 import ItemStatusFilter from '../item-status-filter';
 
 import './app.css';
 
-export  default  class  App extends Component {
-
+export default class App extends Component {
     state = {
-     todoData : [
+        todoData: [
             { label: 'Drink Coffee', important: false, id: 1 },
             { label: 'Make Awesome App', important: true, id: 2 },
             { label: 'Have a lunch', important: false, id: 3 }
@@ -18,17 +17,16 @@ export  default  class  App extends Component {
     };
 
     deleteItem = (id) => {
-        this.setState(({todoData} ) => {
-            const idx = todoData.findIndex((element) => element.id === id);
-            // console.log(idx);
+        this.setState(({todoData}) => {
+            const idx = todoData.findIndex((el) => el.id === id);
+
             todoData.splice(id, 1);
-            // [a, b c, d, e]
-            // [a, b,   d, e]
+
             const before = todoData.slice(0, idx);
-            const after = todoData.slice(idx +1);
+            const after = todoData.slice(idx + 1);
             const newArray = [...before, ...after];
 
-            return{
+            return {
                 todoData: newArray
             };
         });
@@ -42,10 +40,9 @@ export  default  class  App extends Component {
                     <SearchPanel />
                     <ItemStatusFilter />
                 </div>
-
-                <TodoList todos={ this.state.todoData}
-                          onDeleted = { this.deleteItem }/>
+                <TodoList todos={this.state.todoData}
+                          onDeleted={this.deleteItem} />
             </div>
         );
-    };
+    }
 }
